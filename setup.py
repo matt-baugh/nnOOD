@@ -7,7 +7,7 @@ setup(
               'nnood.training.dataloading', 'nnood.training.loss_functions', 'nnood.training.network_training',
               'nnood.training.data_augmentation', 'nnood.inference', 'nnood.evaluation', 'nnood.preprocessing',
               'nnood.experiment_planning', 'nnood.network_architecture', 'nnood.self_supervised_task',
-              'nnood.self_supervised_task.patch_transforms', 'tests', 'tests.self_supervised_task'],
+              'nnood.self_supervised_task.patch_transforms'],
     url='',
     license='',
     author='',
@@ -28,6 +28,7 @@ setup(
         'scikit-image>=0.19.0',
         'argparse',
         'scipy',
-        'unittest2'
+        'unittest2',
+        'pie-torch'
     ]
 )
