@@ -20,6 +20,19 @@ I'd love to hear them!
 *Overview of the nnOOD framework. The green components are entirely new to nnOOD, orange components differ
 significantly from their nnU-Net counterparts and grey components have only minor changes.*
 
+## Installation
+
+ 1. Install [PyTorch](https://pytorch.org/get-started/locally/), making sure that you use a version which works with
+your hardware.
+ 2. Install nnOOD using
+    ```bash
+    git clone https://github.com/matt-baugh/nnOOD
+    cd nnOOD
+    pip install -e .
+    ```
+
+Once installed follow the [experiment walkthrough](documentation/experiment_walkthrough.md) to run nnOOD.
+
 ## Summary of main entrypoints:
 
 Full details on how to use these entrypoints to run an experiment are available in
