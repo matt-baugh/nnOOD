@@ -1,9 +1,7 @@
 from abc import ABC, abstractmethod
 
 import numpy as np
-from skimage.filters import median
-
-from nnood.utils.miscellaneous import make_hypersphere_mask
+from scipy.ndimage import binary_closing, grey_closing
 
 
 class PatchLabeller(ABC):
@@ -26,8 +24,9 @@ class PatchLabeller(ABC):
 
     def remove_no_change(self, blended_img: np.ndarray, orig_img: np.ndarray, mask: np.ndarray) -> np.ndarray:
         mask = (np.mean(mask * np.abs(blended_img - orig_img), axis=0) > self.tolerance).astype(int)
-        # Remove grain from threshold choice, using skimage filter as
-        return median(mask, make_hypersphere_mask(3, len(mask.shape)), mode='nearest')
+        # Remove grain from threshold choice, using scipy morphology
+        # Equivalent to using structure of (5, 5, 5)
+        return binary_closing(mask, structure=np.ones([3] * len(mask.shape)), iterations=2)
 
 
 class BinaryPatchLabeller(PatchLabeller):
@@ -48,7 +47,7 @@ class IntensityPatchLabeller(PatchLabeller):
         mask = self.remove_no_change(blended_img, orig_img, mask)
 
         label = np.mean(mask * np.abs(blended_img - orig_img), axis=0)
-        return median(label, make_hypersphere_mask(5, len(mask.shape)))
+        return grey_closing(label, size=[7] * len(mask.shape))
 
 
 class LogisticIntensityPatchLabeller(IntensityPatchLabeller):
